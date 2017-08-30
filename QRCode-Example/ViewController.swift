@@ -23,6 +23,10 @@ class ViewController: UIViewController {
                 // Cast the result to a barcode-observation
                 if let barcode = result as? VNBarcodeObservation {
                     
+                    if let payload = barcode.payloadStringValue {
+                        print("Payload: \(payload)")
+                    }
+                    
                     // Print barcode-values
                     print("Symbology: \(barcode.symbology.rawValue)")
                     
