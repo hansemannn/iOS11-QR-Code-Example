@@ -10,24 +10,23 @@ import UIKit
 import Vision
 import AVKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBOutlet var previewView: VideoPreviewView!
     
     var captureSession: AVCaptureSession!
     
+    var capturePhotoOutput: AVCapturePhotoOutput!
+    
     var isCaptureSessionConfigured = false
     
-    //MARK: overrides
+    //MARK: overrides for UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         captureSession = AVCaptureSession()
         previewView.session = captureSession
-        
-        // TODO get image from camera to scan
-        //scanImageFromCamera()
         
         //scanImage(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!)
         //scanImage(cgImage: #imageLiteral(resourceName: "bar-code").cgImage!)
@@ -57,6 +56,27 @@ class ViewController: UIViewController {
         }
     }
     
+    //MARK: implementations for AVCapturePhotoCaptureDelegate
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        print("finished processing photo")
+        if let cgImageRef = photo.cgImageRepresentation() {
+            let cgImage = cgImageRef.takeUnretainedValue()
+            
+            print("scanning image")
+            scanImage(cgImage: cgImage)
+        }
+        else {
+            print("could not get image representation")
+        }
+    }
+    
+    //MARK: gesture recognizers
+    
+    @IBAction func selectPreview(_ sender: UITapGestureRecognizer) {
+        snapPhoto()
+    }
+    
     //MARK: private methods
     
     private func configureCaptureSession() {
@@ -71,7 +91,7 @@ class ViewController: UIViewController {
             return
         }
         
-        let capturePhotoOutput = AVCapturePhotoOutput()
+        capturePhotoOutput = AVCapturePhotoOutput()
         capturePhotoOutput.isHighResolutionCaptureEnabled = true
         capturePhotoOutput.isLivePhotoCaptureEnabled = capturePhotoOutput.isLivePhotoCaptureSupported
         
@@ -90,6 +110,22 @@ class ViewController: UIViewController {
         captureSession.addOutput(capturePhotoOutput)
         captureSession.commitConfiguration()
         
+    }
+    
+    private func snapPhoto() {
+        guard let capturePhotoOutput = self.capturePhotoOutput else { return }
+        let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection!.videoOrientation
+        
+        if let photoOutputConnection = capturePhotoOutput.connection(with: AVMediaType.video) {
+            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation
+        }
+        
+        let photoSettings = AVCapturePhotoSettings()
+        photoSettings.isAutoStillImageStabilizationEnabled = true
+        photoSettings.isHighResolutionPhotoEnabled = true
+        photoSettings.flashMode = .auto
+        
+        capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
     }
     
     private func scanImage(cgImage: CGImage) {
