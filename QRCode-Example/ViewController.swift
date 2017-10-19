@@ -14,11 +14,36 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create a barcode detection-request
+        // TODO get image from camera
+        
+        scanImage(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!)
+        //scanImage(cgImage: #imageLiteral(resourceName: "bar-code").cgImage!)
+    }
+    
+    private func scanImage(cgImage: CGImage) {
+        
         let barcodeRequest = VNDetectBarcodesRequest(completionHandler: {(request, error) in
-            
-            // Loopm through the found results
-            for result in request.results! {
+            self.reportResults(results: request.results)
+        })
+        
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [.properties : ""])
+        
+        guard let _ = try? handler.perform([barcodeRequest]) else {
+            return print("Could not perform barcode-request!")
+        }
+        
+    }
+    
+    private func reportResults(results: [Any]?) {
+        
+        // Loop through the found results
+        print("Barcode observation")
+        if results == nil {
+            print("No results found.")
+        }
+        else {
+            print("Number of results found: \(results!.count)")
+            for result in results! {
                 
                 // Cast the result to a barcode-observation
                 if let barcode = result as? VNBarcodeObservation {
@@ -40,15 +65,9 @@ class ViewController: UIViewController {
                     }
                 }
             }
-        })
-        
-        // Create an image handler and use the CGImage your UIImage instance
-        // FIXME: I did not find any docs on how to configure the options properly so far.
-        let handler = VNImageRequestHandler(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!, options: [.properties : ""])
-        
-        guard let _ = try? handler.perform([barcodeRequest]) else {
-            return print("Could not perform barcode-request!")
         }
+        print("")
     }
+    
 }
 
