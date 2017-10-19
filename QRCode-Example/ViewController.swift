@@ -8,16 +8,88 @@
 
 import UIKit
 import Vision
+import AVKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet var previewView: VideoPreviewView!
+    
+    var captureSession: AVCaptureSession!
+    
+    var isCaptureSessionConfigured = false
+    
+    //MARK: overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO get image from camera
+        captureSession = AVCaptureSession()
+        previewView.session = captureSession
         
-        scanImage(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!)
+        // TODO get image from camera to scan
+        //scanImageFromCamera()
+        
+        //scanImage(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!)
         //scanImage(cgImage: #imageLiteral(resourceName: "bar-code").cgImage!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isCaptureSessionConfigured {
+            if !captureSession.isRunning {
+                captureSession.startRunning()
+            }
+        }
+        else {
+            configureCaptureSession()
+            isCaptureSessionConfigured = true
+            captureSession.startRunning()
+            previewView.updateVideoOrientationForDeviceOrientation()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if captureSession.isRunning {
+            captureSession.stopRunning()
+        }
+    }
+    
+    //MARK: private methods
+    
+    private func configureCaptureSession() {
+        
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else {
+            print("Unable to find capture device")
+            return
+        }
+        
+        guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
+            print("Unable to obtain video input")
+            return
+        }
+        
+        let capturePhotoOutput = AVCapturePhotoOutput()
+        capturePhotoOutput.isHighResolutionCaptureEnabled = true
+        capturePhotoOutput.isLivePhotoCaptureEnabled = capturePhotoOutput.isLivePhotoCaptureSupported
+        
+        guard captureSession.canAddInput(videoInput) else {
+            print("Unable to add input")
+            return
+        }
+        guard captureSession.canAddOutput(capturePhotoOutput) else {
+            print("Unable to add output")
+            return
+        }
+        
+        captureSession.beginConfiguration()
+        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+        captureSession.addInput(videoInput)
+        captureSession.addOutput(capturePhotoOutput)
+        captureSession.commitConfiguration()
+        
     }
     
     private func scanImage(cgImage: CGImage) {

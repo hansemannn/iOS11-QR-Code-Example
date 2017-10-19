@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093ED9EA1F9916820013937C /* VideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093ED9E91F9916820013937C /* VideoPreviewView.swift */; };
 		DB0D9F221EEAED7C00F7D533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */; };
 		DB0D9F241EEAED7C00F7D533 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D9F231EEAED7C00F7D533 /* ViewController.swift */; };
 		DB0D9F271EEAED7D00F7D533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB0D9F251EEAED7D00F7D533 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		093ED9E91F9916820013937C /* VideoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewView.swift; sourceTree = "<group>"; };
 		DB0D9F1E1EEAED7C00F7D533 /* QRCode-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QRCode-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB0D9F231EEAED7C00F7D533 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */,
 				DB0D9F231EEAED7C00F7D533 /* ViewController.swift */,
+				093ED9E91F9916820013937C /* VideoPreviewView.swift */,
 				DB0D9F251EEAED7D00F7D533 /* Main.storyboard */,
 				DB0D9F281EEAED7D00F7D533 /* Assets.xcassets */,
 				DB0D9F2A1EEAED7D00F7D533 /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093ED9EA1F9916820013937C /* VideoPreviewView.swift in Sources */,
 				DB0D9F241EEAED7C00F7D533 /* ViewController.swift in Sources */,
 				DB0D9F221EEAED7C00F7D533 /* AppDelegate.swift in Sources */,
 			);
