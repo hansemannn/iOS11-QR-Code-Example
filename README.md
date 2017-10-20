@@ -48,9 +48,5 @@ guard let _ = try? handler.perform([barcodeRequest]) else {
 ```
 That's it! Run the app on the simulator / device and detect QR-codes.
 
-## More Ideas
-This does not show how to use the camera to detect QR-codes on the fly, so this repository should be extended
-to do so - if there is a public API for that already.
-
 ## Author
 Hans Knöchel ([@hansemannnn](https://twitter.com/hansemannnn))

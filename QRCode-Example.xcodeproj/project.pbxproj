@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093ED9EA1F9916820013937C /* VideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093ED9E91F9916820013937C /* VideoPreviewView.swift */; };
 		DB0D9F221EEAED7C00F7D533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */; };
 		DB0D9F241EEAED7C00F7D533 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D9F231EEAED7C00F7D533 /* ViewController.swift */; };
 		DB0D9F271EEAED7D00F7D533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB0D9F251EEAED7D00F7D533 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		093ED9E91F9916820013937C /* VideoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewView.swift; sourceTree = "<group>"; };
 		DB0D9F1E1EEAED7C00F7D533 /* QRCode-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QRCode-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB0D9F231EEAED7C00F7D533 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				DB0D9F211EEAED7C00F7D533 /* AppDelegate.swift */,
 				DB0D9F231EEAED7C00F7D533 /* ViewController.swift */,
+				093ED9E91F9916820013937C /* VideoPreviewView.swift */,
 				DB0D9F251EEAED7D00F7D533 /* Main.storyboard */,
 				DB0D9F281EEAED7D00F7D533 /* Assets.xcassets */,
 				DB0D9F2A1EEAED7D00F7D533 /* LaunchScreen.storyboard */,
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093ED9EA1F9916820013937C /* VideoPreviewView.swift in Sources */,
 				DB0D9F241EEAED7C00F7D533 /* ViewController.swift in Sources */,
 				DB0D9F221EEAED7C00F7D533 /* AppDelegate.swift in Sources */,
 			);
@@ -270,6 +274,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DVN7WHGQ36;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -325,6 +330,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DVN7WHGQ36;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -347,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "QRCode-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hsos.QRCode-Example";
@@ -360,6 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "QRCode-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hsos.QRCode-Example";
@@ -374,6 +382,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "QRCode-ExampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hsos.QRCode-ExampleTests";
@@ -389,6 +398,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "QRCode-ExampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.hsos.QRCode-ExampleTests";
@@ -418,6 +428,7 @@
 				DB0D9F3D1EEAED7D00F7D533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB0D9F3E1EEAED7D00F7D533 /* Build configuration list for PBXNativeTarget "QRCode-ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +437,7 @@
 				DB0D9F401EEAED7D00F7D533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
