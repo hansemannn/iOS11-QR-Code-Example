@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,17 +20,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCO-XW-ahx" customClass="VideoPreviewView" customModule="QRCode_Example" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="335"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCO-XW-ahx" customClass="VideoPreviewView" customModule="QRCode_Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to take a photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqc-XM-3uo">
+                                        <rect key="frame" x="114" y="638" width="147" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.95384730139999996" green="1" blue="0.98941856490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="Yqc-XM-3uo" firstAttribute="centerX" secondItem="dCO-XW-ahx" secondAttribute="centerX" id="IaC-mf-DVb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yqc-XM-3uo" secondAttribute="bottom" constant="8" id="y6H-Wa-Ph1"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="MGt-L5-Kco" appends="YES" id="tBY-nG-qux"/>
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dCO-XW-ahx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5DM-L1-WPp"/>
+                            <constraint firstItem="dCO-XW-ahx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FPJ-jS-MbL"/>
+                            <constraint firstItem="dCO-XW-ahx" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="HkQ-Fp-bU0"/>
+                            <constraint firstAttribute="trailing" secondItem="dCO-XW-ahx" secondAttribute="trailing" id="nUB-JU-Rgc"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="previewView" destination="dCO-XW-ahx" id="Jhx-YG-YOH"/>
