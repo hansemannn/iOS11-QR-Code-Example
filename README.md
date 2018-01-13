@@ -2,7 +2,7 @@
 A quick example showing how to use the `Vision` system-framework in iOS 11 and Swift 4.
 
 ## Prerequisites
-* Xcode 9 Beta (tested with B1)
+* Xcode 9 and later
 
 ## Getting Started
 First, import the `Vision` framework.
@@ -12,10 +12,12 @@ import Vision
 Next, create a barcode-request that will call the completion-handler asynchronously when it detects a code:
 ```swift
 // Create a barcode detection-request
-let barcodeRequest = VNDetectBarcodesRequest(completionHandler: {(request, error) in
-    
+let barcodeRequest = VNDetectBarcodesRequest(completionHandler: { request, error in
+
+    guard let results = request.results else { return }
+
     // Loopm through the found results
-    for result in request.results! {
+    for result in results {
         
         // Cast the result to a barcode-observation
         if let barcode = result as? VNBarcodeObservation {
@@ -37,9 +39,9 @@ let barcodeRequest = VNDetectBarcodesRequest(completionHandler: {(request, error
 ```
 Finally, call the image-request-handler with the previously create barcode-request:
 ```swift
-// Create an image handler and use the CGImage your UIImage instance
-// FIXME: I did not find any docs on how to configure the options properly so far.
-let handler = VNImageRequestHandler(cgImage: #imageLiteral(resourceName: "qr-code").cgImage!, options: [.properties : ""])
+// Create an image handler and use the CGImage your UIImage instance.
+guard let image = myImage.cgImage else { return }
+let handler = VNImageRequestHandler(cgImage: image, options: [:])
 
 // Perform the barcode-request. This will call the completion-handler of the barcode-request.
 guard let _ = try? handler.perform([barcodeRequest]) else {

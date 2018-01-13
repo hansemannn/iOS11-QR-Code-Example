@@ -6,8 +6,8 @@
 //  Copyright © 2017 Hans Knoechel. All rights reserved.
 //
 
-import UIKit
 import AVKit
+import UIKit
 
 class VideoPreviewView : UIView {
   

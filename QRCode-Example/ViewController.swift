@@ -6,9 +6,9 @@
 //  Copyright © 2017 Hans Knoechel. All rights reserved.
 //
 
+import AVKit
 import UIKit
 import Vision
-import AVKit
 
 class ViewController: UIViewController {
   
@@ -59,10 +59,10 @@ class ViewController: UIViewController {
   
   private func snapPhoto() {
     guard let capturePhotoOutput = self.capturePhotoOutput else { return }
-    let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection!.videoOrientation
+    guard let captureConnection = previewView.videoPreviewLayer.connection else { return }
     
     if let photoOutputConnection = capturePhotoOutput.connection(with: AVMediaType.video) {
-      photoOutputConnection.videoOrientation = videoPreviewLayerOrientation
+      photoOutputConnection.videoOrientation = captureConnection.videoOrientation
     }
     
     let photoSettings = AVCapturePhotoSettings()
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
   }
   
   private func scanImage(cgImage: CGImage) {
-    let barcodeRequest = VNDetectBarcodesRequest(completionHandler: {(request, error) in
+    let barcodeRequest = VNDetectBarcodesRequest(completionHandler: { request, error in
       self.reportResults(results: request.results)
     })
     
@@ -108,31 +108,32 @@ class ViewController: UIViewController {
   private func reportResults(results: [Any]?) {
     // Loop through the found results
     print("Barcode observation")
-    
-    if results == nil {
-      print("No results found.")
-    } else {
-      print("Number of results found: \(results!.count)")
-      for result in results! {
+
+    guard let results = results else {
+      return print("No results found.")
+    }
+
+    print("Number of results found: \(results.count)")
+
+    for result in results {
+      
+      // Cast the result to a barcode-observation
+      if let barcode = result as? VNBarcodeObservation {
         
-        // Cast the result to a barcode-observation
-        if let barcode = result as? VNBarcodeObservation {
+        if let payload = barcode.payloadStringValue {
+          print("Payload: \(payload)")
+        }
+        
+        // Print barcode-values
+        print("Symbology: \(barcode.symbology.rawValue)")
+        
+        if let desc = barcode.barcodeDescriptor as? CIQRCodeDescriptor {
+          let content = String(data: desc.errorCorrectedPayload, encoding: .utf8)
           
-          if let payload = barcode.payloadStringValue {
-            print("Payload: \(payload)")
-          }
-          
-          // Print barcode-values
-          print("Symbology: \(barcode.symbology.rawValue)")
-          
-          if let desc = barcode.barcodeDescriptor as? CIQRCodeDescriptor {
-            let content = String(data: desc.errorCorrectedPayload, encoding: .utf8)
-            
-            // FIXME: This currently returns nil. I did not find any docs on how to encode the data properly so far.
-            print("Payload: \(String(describing: content))")
-            print("Error-Correction-Level: \(desc.errorCorrectionLevel)")
-            print("Symbol-Version: \(desc.symbolVersion)")
-          }
+          // FIXME: This currently returns nil. I did not find any docs on how to encode the data properly so far.
+          print("Payload: \(String(describing: content))")
+          print("Error-Correction-Level: \(desc.errorCorrectionLevel)")
+          print("Symbol-Version: \(desc.symbolVersion)")
         }
       }
     }
@@ -183,13 +184,13 @@ extension ViewController : AVCapturePhotoCaptureDelegate {
   func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
     print("Finished processing photo")
     
-    if let cgImageRef = photo.cgImageRepresentation() {
-      let cgImage = cgImageRef.takeUnretainedValue()
-      
-      print("Scanning image")
-      scanImage(cgImage: cgImage)
-    } else {
-      print("Could not get image representation")
+    guard let cgImageRef = photo.cgImageRepresentation() else {
+      return print("Could not get image representation")
     }
+
+    let cgImage = cgImageRef.takeUnretainedValue()
+    
+    print("Scanning image")
+    scanImage(cgImage: cgImage)
   }
 }
